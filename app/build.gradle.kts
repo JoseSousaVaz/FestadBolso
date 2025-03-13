@@ -44,9 +44,9 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.10.0"))
 
     // Firebase dependencies
-    implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-firestore")
-    implementation("com.google.firebase:firebase-auth")
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.auth)
 
     // ✅ Add this for FirebaseUI Authentication
     implementation("com.firebaseui:firebase-ui-auth:8.0.2")
@@ -58,4 +58,6 @@ dependencies {
     //Use apis
     implementation("com.android.volley:volley:1.2.1")
     implementation("org.json:json:20210307")
+
+    
 }

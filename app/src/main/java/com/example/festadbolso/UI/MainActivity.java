@@ -2,6 +2,7 @@ package com.example.festadbolso.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -10,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.RequestQueue;
+import com.example.festadbolso.Firestore.FirestoreHelper;
 import com.example.festadbolso.R;
 import com.example.festadbolso.UI.FirebaseUIActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,6 +21,20 @@ import com.google.firebase.auth.FirebaseUser;
 // For the image
 import com.bumptech.glide.Glide;
 import android.widget.ImageView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+//For firestore interaction
+//Just for reset password
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import org.json.JSONException;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -122,6 +139,29 @@ public class MainActivity extends AppCompatActivity {
         // In the future, you would start a new activity or fragment for the game
         // Intent intent = new Intent(this, RandomGameActivity.class);
         // startActivity(intent);
+        FirestoreHelper.getHighestGameId(new FirestoreHelper.OnHighestIdRetrievedListener() {
+            @Override
+            public void onHighestIdRetrieved(long highestId) {
+                // This callback will be triggered with the highest id from the Firestore collection
+                // The highestId is of type 'long'
+                Log.d("Firestore", "The highest ID is: " + highestId);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                // Handle error if fetching the highest ID fails
+                Log.e("Firestore", "Error retrieving highest ID", e);
+            }
+        });
+
+
+        //Add Games
+        FirestoreHelper.addGames(this);
+
+
+        // Get games
+        FirestoreHelper.getGames(this);
+
     }
 
     private void signOut() {
