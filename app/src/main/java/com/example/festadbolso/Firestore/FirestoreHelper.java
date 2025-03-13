@@ -47,16 +47,15 @@ public class FirestoreHelper {
         try {
             // Create the fields object with all game properties
             JSONObject fields = new JSONObject()
-                    .put("id", new JSONObject().put("integerValue", 2))
-                    .put("name", new JSONObject().put("stringValue", "Único e partilhado"))
-                    .put("description", new JSONObject().put("stringValue", "Conhecer novas pessoas pode ser difícil. É por isso que os jogos \"quebra-gelo\" são tão bons! Um dos mais famosos é o \"duas verdades e uma mentira\", que envolve descobrir qual dos três factos sobre uma pessoa que você não conhece é falso"))
-                    .put("rules", new JSONObject().put("stringValue", "Preparação: Se forem mais do que 8 jogadores dividam-se em grupos de 3-4. Disponham-se de maneira confortável.\\n1.Escolham uma pessoa para ser o primeiro a partilhar, pode ser voluntário, aleatório ou quem sugeriu o jogo ou é mais velho/novo.\\n2. O primeiro pensa em 3 factos sobre si, 2 verdades e 1 mentira e depois apresenta-os aos outros.\\n3.(Opcional) Pode haver discussão entre as pessoas que ouviram, podendo a pessoa que partilhou falar OU ficar calada.\\n4.Tentem adivinhar qual a mentira.\\n5. A pessoa que partilhou os factos diz qual é a mentira.\\n6.(Opcional, não recomendado para pessoas que se estão a conhecer)Um ponto para quem partilhou se conseguiu \"enganar\" alguém, um ponto para cada pessoa que apanhou a mentira.\\n7.Agora é a vez do próximo. Sigam o jogo no sentido horário ou anti horário, ou por voluntários ou outra ordem mais conveniente."))
-                    .put("minPlayers", new JSONObject().put("integerValue", 3))
-                    .put("maxPlayers", new JSONObject().put("integerValue", 25))
-                    .put("difficulty", new JSONObject().put("integerValue", 2))
-                    .put("setupTime", new JSONObject().put("integerValue", 2)) // minutes
-                    .put("playTime", new JSONObject().put("integerValue", 15))  // minutes
-                    .put("imageUrl", new JSONObject().put("stringValue", "https://www.brightsprouts.com/wp-content/uploads/2022/10/Two-Truths-and-a-Lie-Game.jpg"))
+                    .put("id", new JSONObject().put("integerValue", 3))
+                    .put("name", new JSONObject().put("stringValue", "De quem é esta história?"))
+                    .put("description", new JSONObject().put("stringValue", "Descubra mais sobre as pessoas à sua volta partilhando uma história que os vai apanhar de surpresa"))
+                    .put("rules", new JSONObject().put("stringValue", "Preparação: Se forem mais do que 8 jogadores dividam-se em grupos de 5.\nRegras:\n1.Escolham uma pessoa para ser o leitor.\n2.Escrevam a vossa história mais engraçada ou mais estranha num papel ou no telemóvel.\n3.O leitor designado lê as histórias aleatoriamente e este(caso não saiba a quem pertence) e o resto do grupo tenta adivinhar quem escreveu essa história.\n4.Se o jogo tiver vários grupos permitam que membros do vosso grupo partilhem a vossa história com membros dos outros grupos."))
+                    .put("maxPlayers", new JSONObject().put("integerValue", 20))
+                    .put("difficulty", new JSONObject().put("integerValue", 1))
+                    .put("setupTime", new JSONObject().put("integerValue", 1)) // minutes
+                    .put("playTime", new JSONObject().put("integerValue", 25))  // minutes
+                    .put("imageUrl", new JSONObject().put("stringValue", "https://www.icebreakerspot.com/cdn-cgi/imagedelivery/wqvb7H6GNzM_j_RtyG61hw/98788cf7-a1c2-4978-6fe7-e53358fe0900/w=1536,format=webp,quality=75"))
                     .put("createdAt", new JSONObject().put("timestampValue", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(new Date())))
                     .put("featured", new JSONObject().put("booleanValue", false));
 
