@@ -1,15 +1,16 @@
 <resources>
     <string name="app_name">FestadBolso</string>
     <string name="email">Email</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="login_register">Login/Register</string>
+    <string name="username">Nome de utilizador</string>
+    <string name="password">Palavra passe</string>
+    <string name="login_register">Login/Registar</string>
     <string name="home">Home</string>
     <string name="login">Login</string>
-    <string name="register">Register</string>
-    <string name="random_game">Random Game</string>
+    <string name="register">Registar</string>
+    <string name="random_game">Jogo Aleatório</string>
     <string name="logout">Logout</string>
-    <string name="version_1_0">Version 1.0</string>
-    <string name="welcome_to_festa_d_bolso">Welcome to Festa d\'Bolso</string>
+    <string name="version_1_0">Versão da aplicação 1.0</string>
+    <string name="welcome_to_festa_d_bolso">Bem vindo ao Festa d\'Bolso</string>
     <string name="app_logo">App Logo</string>
+    <string name="recuperar_palavra_passe">Recuperar palavra-passe</string>
 </resources>

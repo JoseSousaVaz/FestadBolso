@@ -54,13 +54,23 @@
         android:layout_marginTop="16dp"/>
 
     <Button
+        android:id="@+id/recoverPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/recuperar_palavra_passe"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/authButton"
+        android:layout_marginTop="16dp"/>
+
+    <Button
         android:id="@+id/homeButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/home"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/authButton"
+        app:layout_constraintTop_toBottomOf="@id/recoverPassword"
         android:layout_marginTop="16dp"/>
 
     <ProgressBar

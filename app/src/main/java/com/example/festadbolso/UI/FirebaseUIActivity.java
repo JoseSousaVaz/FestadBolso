@@ -2,6 +2,7 @@ package com.example.festadbolso.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+//Just for reset password
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
 public class FirebaseUIActivity extends AppCompatActivity {
 
     private EditText emailEditText, passwordEditText;
@@ -26,6 +37,8 @@ public class FirebaseUIActivity extends AppCompatActivity {
 
     // Add this new field
     private EditText usernameEditText;
+
+    private Button recoverPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +53,7 @@ public class FirebaseUIActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordEditText);
         authButton = findViewById(R.id.authButton);
         Button homeButton = findViewById(R.id.homeButton);
+        Button recoverPassword = findViewById(R.id.recoverPassword);
         progressBar = findViewById(R.id.progressBar);
 
         // Get intent extras to check if it's a registration or login
@@ -50,11 +64,16 @@ public class FirebaseUIActivity extends AppCompatActivity {
         // Hide username field if it's a login
         usernameEditText.setVisibility(isRegister ? View.VISIBLE : View.GONE);
 
+        // Hide recover password if it's a register
+        recoverPassword.setVisibility(isRegister ? View.GONE : View.VISIBLE);
+
         authButton.setText(isRegister ? "Register" : "Login");
 
         authButton.setOnClickListener(v -> authenticateUser());
 
         homeButton.setOnClickListener(v -> goToMainActivity());
+
+        recoverPassword.setOnClickListener(v -> resetPassword());
     }
 
     private void authenticateUser() {
@@ -111,6 +130,31 @@ public class FirebaseUIActivity extends AppCompatActivity {
                         }
                     });
         }
+    }
+    private void resetPassword() {
+        String email = emailEditText.getText().toString().trim();
+        String url = "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyC3Di6JbWETJbCMljmlg2ze8docxfW9fVc";
+        if (email.isEmpty()) {
+            Toast.makeText(this, "Insira o seu email acima!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        JSONObject jsonRequest = new JSONObject();
+        try {
+            jsonRequest.put("requestType", "PASSWORD_RESET");
+            jsonRequest.put("email", email);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonRequest,
+                response -> Toast.makeText(this, "Email de reset de password enviado!", Toast.LENGTH_SHORT).show(),
+                error -> Toast.makeText(this, "Error: " + error.getMessage(), Toast.LENGTH_LONG).show()
+        );
+
+        queue.add(request);
+
     }
 
 
