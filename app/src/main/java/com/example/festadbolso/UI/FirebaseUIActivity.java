@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.festadbolso.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class FirebaseUIActivity extends AppCompatActivity {
 
@@ -22,6 +23,9 @@ public class FirebaseUIActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private boolean isRegister = false;
 
+    // Add this new field
+    private EditText usernameEditText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +34,7 @@ public class FirebaseUIActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         // Initialize UI elements
+        usernameEditText = findViewById(R.id.usernameEditText); // Add this
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         authButton = findViewById(R.id.authButton);
@@ -40,30 +45,24 @@ public class FirebaseUIActivity extends AppCompatActivity {
             isRegister = getIntent().getBooleanExtra("is_register", false);
         }
 
-        // Check if user is already signed in (if not registering)
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if (currentUser != null && !isRegister) {
-            goToMainActivity();
-        }
+        // Hide username field if it's a login
+        usernameEditText.setVisibility(isRegister ? View.VISIBLE : View.GONE);
 
-        // Set button text based on mode
         authButton.setText(isRegister ? "Register" : "Login");
 
-        // Set click listener for authentication button
         authButton.setOnClickListener(v -> authenticateUser());
     }
 
     private void authenticateUser() {
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
+        String username = isRegister ? usernameEditText.getText().toString().trim() : "";
 
-        // Basic validation
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Email and password are required!", Toast.LENGTH_SHORT).show();
+        if (email.isEmpty() || password.isEmpty() || (isRegister && username.isEmpty())) {
+            Toast.makeText(this, "All fields are required!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Show progress bar and disable button
         progressBar.setVisibility(View.VISIBLE);
         authButton.setEnabled(false);
 
@@ -71,13 +70,25 @@ public class FirebaseUIActivity extends AppCompatActivity {
             // Register new user
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {
-                        progressBar.setVisibility(View.GONE);
-                        authButton.setEnabled(true);
-
                         if (task.isSuccessful()) {
-                            Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
-                            goToMainActivity();
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            if (user != null) {
+                                // Set username in FirebaseUser profile
+                                user.updateProfile(new UserProfileChangeRequest.Builder()
+                                                .setDisplayName(username)
+                                                .build())
+                                        .addOnCompleteListener(profileUpdateTask -> {
+                                            progressBar.setVisibility(View.GONE);
+                                            authButton.setEnabled(true);
+                                            if (profileUpdateTask.isSuccessful()) {
+                                                Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
+                                                goToMainActivity();
+                                            }
+                                        });
+                            }
                         } else {
+                            progressBar.setVisibility(View.GONE);
+                            authButton.setEnabled(true);
                             Toast.makeText(this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -97,6 +108,7 @@ public class FirebaseUIActivity extends AppCompatActivity {
                     });
         }
     }
+
 
     private void goToMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);

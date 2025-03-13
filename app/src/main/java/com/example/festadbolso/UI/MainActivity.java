@@ -90,24 +90,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            // User is signed in
-            welcomeTextView.setText("Welcome, " + (user.getDisplayName() != null ?
-                    user.getDisplayName() : user.getEmail()));
+            //User is signed in
+            // Display username instead of email if available
+            String displayName = user.getDisplayName();
+            welcomeTextView.setText("Welcome, " + (displayName != null && !displayName.isEmpty() ? displayName : user.getEmail()));
 
-            // Update button visibility
             loginButton.setVisibility(View.GONE);
             registerButton.setVisibility(View.GONE);
             logoutButton.setVisibility(View.VISIBLE);
         } else {
-            // User is not signed in
+            //User is not signed in
             welcomeTextView.setText("Welcome to Festa d'Bolso");
-
-            // Update button visibility
             loginButton.setVisibility(View.VISIBLE);
             registerButton.setVisibility(View.VISIBLE);
             logoutButton.setVisibility(View.GONE);
         }
     }
+
 
     private void goToFirebaseAuth(boolean isRegister) {
         Intent intent = new Intent(this, FirebaseUIActivity.class);
