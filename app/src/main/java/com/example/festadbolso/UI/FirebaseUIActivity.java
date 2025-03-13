@@ -19,6 +19,8 @@ public class FirebaseUIActivity extends AppCompatActivity {
 
     private EditText emailEditText, passwordEditText;
     private Button authButton;
+
+    private Button homeButton;
     private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;
     private boolean isRegister = false;
@@ -38,6 +40,7 @@ public class FirebaseUIActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         authButton = findViewById(R.id.authButton);
+        homeButton = findViewById(R.id.homeButton);
         progressBar = findViewById(R.id.progressBar);
 
         // Get intent extras to check if it's a registration or login
@@ -51,6 +54,8 @@ public class FirebaseUIActivity extends AppCompatActivity {
         authButton.setText(isRegister ? "Register" : "Login");
 
         authButton.setOnClickListener(v -> authenticateUser());
+
+        homeButton.setOnClickListener(v -> goToMainActivity());
     }
 
     private void authenticateUser() {
