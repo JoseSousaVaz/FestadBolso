@@ -158,6 +158,10 @@ public class MainActivity extends AppCompatActivity {
                     //Remover na última versão
                     Toast.makeText(MainActivity.this, "Random Game ID: " + randomId, Toast.LENGTH_LONG).show();
 
+                    Intent intent = new Intent(MainActivity.this, GameDetailsActivity.class);
+                    intent.putExtra("randomId", randomId); // Pass the random ID to the next activity
+                    startActivity(intent);
+
                 } else {
                     Log.d("Firestore", "Game IDs list is empty or null.");
                 }

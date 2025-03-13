@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:scrollbars="vertical">
+
+    <!-- Game Name -->
+    <TextView
+        android:id="@+id/game_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Game Name"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Game Image -->
+    <ImageView
+        android:id="@+id/game_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/sample_game_image"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Horizontal Stats (Max Players, Setup Time, Play Time) -->
+    <LinearLayout
+        android:id="@+id/stats_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="16dp">
+
+    <!-- Max Players -->
+    <LinearLayout
+        android:id="@+id/max_players_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_max_players" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Max Players"
+        android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- Setup Time -->
+    <LinearLayout
+        android:id="@+id/setup_time_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_play_time" />
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Setup Time"
+        android:textSize="14sp" />
+    </LinearLayout>
+
+        <!-- Play Time -->
+        <LinearLayout
+        android:id="@+id/play_time_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_play_time" />
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Play Time"
+            android:textSize="14sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+        <!-- Game Description -->
+    <TextView
+    android:id="@+id/game_description"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Description"
+    android:textSize="16sp"
+    android:layout_marginBottom="16dp" />
+
+        <!-- Game Rules -->
+    <TextView
+    android:id="@+id/game_rules"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Rules"
+    android:textSize="16sp" />
+    </LinearLayout>

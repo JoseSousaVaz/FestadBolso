@@ -27,5 +27,9 @@
             android:name=".UI.MainActivity"
             android:exported="false" />
 
+        <activity android:name=".UI.GameDetailsActivity">
+            <!-- You can add additional attributes here, such as launch mode, theme, etc. -->
+        </activity>
+
     </application>
 </manifest>
