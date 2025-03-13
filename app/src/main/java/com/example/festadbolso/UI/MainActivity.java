@@ -35,6 +35,8 @@ import org.json.JSONException;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -137,30 +139,60 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Random game will be implemented soon!", Toast.LENGTH_SHORT).show();
 
         // In the future, you would start a new activity or fragment for the game
-        // Intent intent = new Intent(this, RandomGameActivity.class);
-        // startActivity(intent);
-        FirestoreHelper.getHighestGameId(new FirestoreHelper.OnHighestIdRetrievedListener() {
+// Assuming the listener is set up correctly somewhere
+        FirestoreHelper.getNonFeaturedGameIds(new FirestoreHelper.OnIdsRetrievedListener() {
             @Override
-            public void onHighestIdRetrieved(long highestId) {
-                // This callback will be triggered with the highest id from the Firestore collection
-                // The highestId is of type 'long'
-                Log.d("Firestore", "The highest ID is: " + highestId);
+            public void onIdsRetrieved(List<Long> gameIds) {
+                // Handle the retrieved game IDs (e.g., pass them to an adapter or use them further)
+                Log.d("Firestore", "Retrieved Game IDs: " + gameIds);
+
+                // Check if the list is not empty
+                if (gameIds != null && !gameIds.isEmpty()) {
+                    // Select a random ID
+                    Random random = new Random();
+                    int randomIndex = random.nextInt(gameIds.size()); // Generate random index
+                    Long randomId = gameIds.get(randomIndex); // Get the game ID at the random index
+
+                    // Log or use the random ID
+                    Log.d("Firestore", "Random Game ID: " + randomId);
+                    //Remover na última versão
+                    Toast.makeText(MainActivity.this, "Random Game ID: " + randomId, Toast.LENGTH_LONG).show();
+
+                } else {
+                    Log.d("Firestore", "Game IDs list is empty or null.");
+                }
             }
 
             @Override
             public void onError(Exception e) {
-                // Handle error if fetching the highest ID fails
-                Log.e("Firestore", "Error retrieving highest ID", e);
+                // Handle errors here
+                Log.e("Firestore", "Error retrieving game IDs: ", e);
             }
         });
 
 
-        //Add Games
-        FirestoreHelper.addGames(this);
-
-
-        // Get games
-        FirestoreHelper.getGames(this);
+//        FirestoreHelper.getHighestGameId(new FirestoreHelper.OnHighestIdRetrievedListener() {
+//            @Override
+//            public void onHighestIdRetrieved(long highestId) {
+//                // This callback will be triggered with the highest id from the Firestore collection
+//                // The highestId is of type 'long'
+//                Log.d("Firestore", "The highest ID is: " + highestId);
+//            }
+//
+//            @Override
+//            public void onError(Exception e) {
+//                // Handle error if fetching the highest ID fails
+//                Log.e("Firestore", "Error retrieving highest ID", e);
+//            }
+//        });
+//
+//
+//        //Add Games
+//        FirestoreHelper.addGames(this);
+//
+//
+//        // Get games
+//        FirestoreHelper.getGames(this);
 
     }
 

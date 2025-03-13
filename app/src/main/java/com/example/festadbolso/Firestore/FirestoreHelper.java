@@ -22,6 +22,11 @@ import java.util.Date;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;  // If you use Collections.emptyList() for an empty list
+
+
 public class FirestoreHelper {
     private static final String TAG = "FirestoreHelper";
     private static final String FIRESTORE_URL = "https://firestore.googleapis.com/v1/projects/festadbolso/databases/(default)/documents/games";
@@ -47,23 +52,23 @@ public class FirestoreHelper {
         try {
             // Create the fields object with all game properties
             JSONObject fields = new JSONObject()
-                    .put("id", new JSONObject().put("integerValue", 3))
-                    .put("name", new JSONObject().put("stringValue", "De quem é esta história?"))
-                    .put("description", new JSONObject().put("stringValue", "Descubra mais sobre as pessoas à sua volta partilhando uma história que os vai apanhar de surpresa"))
-                    .put("rules", new JSONObject().put("stringValue", "Preparação: Se forem mais do que 8 jogadores dividam-se em grupos de 5.\nRegras:\n1.Escolham uma pessoa para ser o leitor.\n2.Escrevam a vossa história mais engraçada ou mais estranha num papel ou no telemóvel.\n3.O leitor designado lê as histórias aleatoriamente e este(caso não saiba a quem pertence) e o resto do grupo tenta adivinhar quem escreveu essa história.\n4.Se o jogo tiver vários grupos permitam que membros do vosso grupo partilhem a vossa história com membros dos outros grupos."))
-                    .put("maxPlayers", new JSONObject().put("integerValue", 20))
-                    .put("difficulty", new JSONObject().put("integerValue", 1))
+                    .put("id", new JSONObject().put("integerValue", 7))
+                    .put("name", new JSONObject().put("stringValue", "Espião"))
+                    .put("description", new JSONObject().put("stringValue", "Descubra quem é o infiltrado no grupo."))
+                    .put("rules", new JSONObject().put("stringValue", "Preparação: Os jogadores devem dispor-se de maneira confortável num circulo.\nRegras:\n1.A aplicação irá aleatoriamente escolher um(ou mais) espião e designar o resto dos jogadores como agentes.\n2.Na aplicação o espião vai receber uma informação a dizer que é o espião, o resto dos jogadores vão receber uma localização: praia,banco,escola,etc.\n3.Um jogador começa por perguntar a outro à sua escolha uma pergunta simples sobre a localização -Este sítio é dentro ou fora de um edificio?, analisa a resposta e decide se quer acusar o jogador que respondeu de ser o espião ou passar a vez.\n4.Se escolher acusar e estiver correcto o espião é expulso, se for o único ganharam o jogo. Se não estiver correcto quem acusou perde e sai do jogo.\n5.Não acusando a vez passa para o próximo, repetindo assim até apenas haver o espião e um agente(ou número igual de espiões e agentes."))
+                    .put("maxPlayers", new JSONObject().put("integerValue", 8))
+                    .put("difficulty", new JSONObject().put("integerValue", 2))
                     .put("setupTime", new JSONObject().put("integerValue", 1)) // minutes
-                    .put("playTime", new JSONObject().put("integerValue", 25))  // minutes
-                    .put("imageUrl", new JSONObject().put("stringValue", "https://www.icebreakerspot.com/cdn-cgi/imagedelivery/wqvb7H6GNzM_j_RtyG61hw/98788cf7-a1c2-4978-6fe7-e53358fe0900/w=1536,format=webp,quality=75"))
+                    .put("playTime", new JSONObject().put("integerValue", 10))  // minutes
+                    .put("imageUrl", new JSONObject().put("stringValue", "https://static.vecteezy.com/system/resources/previews/008/222/212/non_2x/detective-spy-logo-free-vector.jpg"))
                     .put("createdAt", new JSONObject().put("timestampValue", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(new Date())))
-                    .put("featured", new JSONObject().put("booleanValue", false));
+                    .put("featured", new JSONObject().put("booleanValue", true));
 
             // Add categories as array value
             JSONArray categoriesArray = new JSONArray();
-            categoriesArray.put(new JSONObject().put("stringValue", "Offline"));
+            categoriesArray.put(new JSONObject().put("stringValue", "Online"));
             categoriesArray.put(new JSONObject().put("stringValue", "Social"));
-            categoriesArray.put(new JSONObject().put("stringValue", "Quebra gelo"));
+            categoriesArray.put(new JSONObject().put("stringValue", "Social Deduction"));
 
             JSONObject arrayValues = new JSONObject();
             arrayValues.put("arrayValue", new JSONObject().put("values", categoriesArray));
@@ -110,4 +115,33 @@ public class FirestoreHelper {
         void onHighestIdRetrieved(long highestId);
         void onError(Exception e);
     }
+    //Random game implementation
+    public static void getNonFeaturedGameIds(OnIdsRetrievedListener listener) {
+        db.collection("games")
+                .whereEqualTo("featured", false)  // Filter to get only non-featured games
+                .get()  // Perform the query
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<Long> gameIds = new ArrayList<>();
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
+                            Long gameId = documentSnapshot.getLong("id");  // Assuming the 'id' field is a Long
+                            if (gameId != null) {
+                                gameIds.add(gameId);  // Add the game ID to the list
+                            }
+                        }
+                        listener.onIdsRetrieved(gameIds);  // Callback with the list of IDs
+                    } else {
+                        listener.onIdsRetrieved(Collections.emptyList());  // If no non-featured games found
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    listener.onError(e);  // Handle error
+                });
+    }
+    public interface OnIdsRetrievedListener {
+        void onIdsRetrieved(List<Long> gameIds);  // Callback for the retrieved list of game IDs
+        void onError(Exception e);  // Callback for error handling
+    }
+
+
 }

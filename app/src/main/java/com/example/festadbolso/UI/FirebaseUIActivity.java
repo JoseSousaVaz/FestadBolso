@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +39,7 @@ public class FirebaseUIActivity extends AppCompatActivity {
     // Add this new field
     private EditText usernameEditText;
 
-    private Button recoverPassword;
+    private TextView recoverPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class FirebaseUIActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordEditText);
         authButton = findViewById(R.id.authButton);
         Button homeButton = findViewById(R.id.homeButton);
-        Button recoverPassword = findViewById(R.id.recoverPassword);
+        TextView recoverPassword = findViewById(R.id.recoverPassword);
         progressBar = findViewById(R.id.progressBar);
 
         // Get intent extras to check if it's a registration or login
