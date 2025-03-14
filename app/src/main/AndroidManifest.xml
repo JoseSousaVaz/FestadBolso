@@ -48,5 +48,9 @@
             <!-- Optional: Any specific settings for JoinActivity -->
         </activity>
 
+        <activity android:name=".UI.CharadesActivity">
+            <!-- Optional: Any specific settings for JoinActivity -->
+        </activity>
+
     </application>
 </manifest>

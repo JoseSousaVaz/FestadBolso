@@ -11,5 +11,13 @@
     <color name="deep_orange">#FF5722</color>
     <color name="sky_blue">#64B5F6</color>
     <color name="mint_green">#98FB98</color>
+    <color name="pink_200">#FFC0CB</color>
+    <color name="gray_200">#CCCCCC</color>
+    <color name="red_200">#FF5252</color>
+    <color name="green_200">#4CAF50</color>
+    <color name="orange_200">#FFAB91</color>
+
+
+
 
 </resources>

@@ -77,8 +77,15 @@ public class GameDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start the TestActivity when the play button is clicked
-                Intent intent = new Intent(GameDetailsActivity.this, TestActivity.class);
+                Intent intent;
+                if (randomId ==4){
+                    // Start the CharadesActivity when the play button is clicked
+                    intent = new Intent(GameDetailsActivity.this, CharadesActivity.class);
+                }else{
+                    intent = new Intent(GameDetailsActivity.this, TestActivity.class);
+                }
                 startActivity(intent);
+
             }
         });
 
@@ -157,6 +164,7 @@ public class GameDetailsActivity extends AppCompatActivity {
         // Extract and display rules
         if (fields.has("rules")) {
             String rules = fields.getJSONObject("rules").getString("stringValue");
+            rules = rules.replace("\\n", "\n"); // Convert Firestore's stored "\n" into actual new lines
             gameRules.setText(rules);
         }
 
