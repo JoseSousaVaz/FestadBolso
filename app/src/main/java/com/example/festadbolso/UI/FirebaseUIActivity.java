@@ -40,6 +40,7 @@ public class FirebaseUIActivity extends AppCompatActivity {
     private EditText usernameEditText;
 
     private TextView recoverPassword;
+    private TextView gotoRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,7 @@ public class FirebaseUIActivity extends AppCompatActivity {
         authButton = findViewById(R.id.authButton);
         Button homeButton = findViewById(R.id.homeButton);
         TextView recoverPassword = findViewById(R.id.recoverPassword);
+        TextView gotoRegister = findViewById(R.id.gotoregister);
         progressBar = findViewById(R.id.progressBar);
 
         // Get intent extras to check if it's a registration or login
@@ -76,6 +78,7 @@ public class FirebaseUIActivity extends AppCompatActivity {
 
         // Hide recover password if it's a register
         recoverPassword.setVisibility(isRegister ? View.GONE : View.VISIBLE);
+        gotoRegister.setVisibility(isRegister ? View.GONE : View.VISIBLE);
 
         authButton.setText(isRegister ? "Register" : "Login");
 
@@ -84,6 +87,9 @@ public class FirebaseUIActivity extends AppCompatActivity {
         homeButton.setOnClickListener(v -> goToMainActivity());
 
         recoverPassword.setOnClickListener(v -> resetPassword());
+
+        gotoRegister.setOnClickListener(v -> goToFirebaseAuth(true));
+
     }
 
     private void authenticateUser() {
@@ -180,5 +186,12 @@ public class FirebaseUIActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         finish();
+    }
+
+    private void goToFirebaseAuth(boolean isRegister) {
+        Intent intent = new Intent(this, FirebaseUIActivity.class);
+        // You could pass a flag to indicate register vs login if needed
+        intent.putExtra("is_register", isRegister);
+        startActivity(intent);
     }
 }

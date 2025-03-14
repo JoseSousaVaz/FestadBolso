@@ -74,16 +74,21 @@ public class GameDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start the SpyActivity when the play button is clicked
-                Intent intent;
+                Intent intent = null;
                 if (randomId == 4){
                     // Start the CharadesActivity when the play button is clicked
                     intent = new Intent(GameDetailsActivity.this, CharadesActivity.class);
                 } else if (randomId == 6) {
                     intent = new Intent(GameDetailsActivity.this, TruthOrDareActivity.class);
-                } else{
+                } else if (randomId == 7){
                     intent = new Intent(GameDetailsActivity.this, SpyActivity.class);
+                } else {
+                    Toast.makeText(GameDetailsActivity.this, "Funcionalidade ainda não foi implementada", Toast.LENGTH_SHORT).show();
                 }
-                startActivity(intent);
+                // Ensure intent is not null before starting the activity
+                if (intent != null) {
+                    startActivity(intent);
+                }
 
             }
         });

@@ -24,8 +24,7 @@ public class SpyActivity extends AppCompatActivity {
     private Button testHotspotButton;
     private Button hostButton;
     private Button joinButton;
-
-    private ImageView spy_image;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

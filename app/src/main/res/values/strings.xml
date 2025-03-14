@@ -38,4 +38,6 @@
     <string name="ligar_hotspot">Ligar hotspot</string>
     <string name="morada_ip_aparece_aqui">Morada IP aparece aqui</string>
     <string name="permite_hotspot_para_te_tornares_anfitri_o">Permite hotspot para te tornares anfitrião</string>
+    <string name="n_o_tem_utilizador_ir_para_registo">Não tem utilizador? Ir para registo</string>
+    <string name="esqueceu_se_da_palavra_passe">Esqueceu-se da palavra passe?</string>
 </resources>
