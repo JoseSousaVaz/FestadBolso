@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/light_gray">
+
+    <ImageView
+        android:id="@+id/mr_white_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/mrwhite_image"
+        android:layout_marginBottom="16dp" />
+
+    <!-- CardView for a polished look -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mr White"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- Game Description -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Um jogo onde todos têm a mesma palavra, exceto uma pessoa (Mr White) que tem uma palavra semelhante. À vez, cada pessoa diz uma palavra para descrever a sua palavra. Tentem descobrir quem é o Mr White!"
+                android:textColor="@color/black"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- TextView to display status -->
+            <TextView
+                android:id="@+id/statusTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Escolha uma opção"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="16dp"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"/>
+
+            <!-- Button to start the Host Activity -->
+            <Button
+                android:id="@+id/hostButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ser anfitrião do jogo"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/purple_200"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp"
+                android:textAllCaps="false"/>
+
+            <!-- Button to start the Join Activity -->
+            <Button
+                android:id="@+id/joinButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Entrar no jogo"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/pink_200"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp"
+                android:textAllCaps="false"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- TextView to display instructions -->
+    <TextView
+        android:id="@+id/instructionsText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/host_required_info"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:background="@color/light_gray"
+        app:drawableStartCompat="@drawable/ic_info"/>
+</LinearLayout>

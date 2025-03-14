@@ -19,10 +19,10 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class JoinActivity extends Activity {
+public class JoinMrWhiteActivity extends Activity {
 
-    private static final String TAG = "JoinActivity";
-    private static final int PORT = 12345;
+    private static final String TAG = "JoinMrWhiteActivity";
+    private static final int PORT = 12346;
 
     private EditText ipAddressEditText;
     private Button joinButton;
@@ -33,7 +33,7 @@ public class JoinActivity extends Activity {
     private Socket socket;
     private ObjectInputStream inputStream;
 
-    private Player clientPlayer;
+    private MrWhitePlayer clientPlayer;
     private boolean isConnected = false;
 
     private Button toggleRoleButton;
@@ -41,15 +41,14 @@ public class JoinActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_join);
+        setContentView(R.layout.activity_mr_white_join);
 
         // Initialize UI components
-        ipAddressEditText = findViewById(R.id.ipAddressEditText); // Add this to your layout
+        ipAddressEditText = findViewById(R.id.ipAddressEditText);
         joinButton = findViewById(R.id.joinButton);
         statusTextView = findViewById(R.id.statusTextView);
         roleDisplayTextView = findViewById(R.id.roleDisplayTextView);
         toggleRoleButton = findViewById(R.id.toggleRoleButton);
-
 
         // Set default IP (common hotspot IP)
         ipAddressEditText.setText("192.168.43.1");
@@ -138,10 +137,10 @@ public class JoinActivity extends Activity {
 
     private void processGameData(Map<String, Object> data) {
         String playerId = (String) data.get("playerId");
-        List<Player> players = (List<Player>) data.get("players");
+        List<MrWhitePlayer> players = (List<MrWhitePlayer>) data.get("players");
 
         // Find our player in the list
-        for (Player player : players) {
+        for (MrWhitePlayer player : players) {
             if (player.getId().equals(playerId)) {
                 clientPlayer = player;
                 break;
@@ -151,14 +150,15 @@ public class JoinActivity extends Activity {
         // Update UI with player role information
         runOnUiThread(() -> {
             if (clientPlayer != null) {
-                String roleInfo = "Tu és um " + clientPlayer.getRole();
-
-                if (clientPlayer.getRole().equals("Agente")) {
-                    roleInfo += " na/no " + clientPlayer.getLocation();
+                String roleInfo;
+                if (clientPlayer.getRole().equals("MrWhite")) {
+                    roleInfo = "Tu és Mr White e a tua palavra é: " + clientPlayer.getWord();
+                } else {
+                    roleInfo = "Tu és um jogador regular e a tua palavra é: " + clientPlayer.getWord();
                 }
 
                 roleDisplayTextView.setText(roleInfo);
-                statusTextView.setText("Jogo começado!");
+                statusTextView.setText("Jogo começado! Usem palavras individuais para descrever a vossa palavra à vez.");
             }
         });
     }

@@ -27,10 +27,10 @@ import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class HostActivity extends Activity {
+public class HostMrWhiteActivity extends Activity {
 
-    private static final String TAG = "HostActivity";
-    private static final int PORT = 12345;
+    private static final String TAG = "HostMrWhiteActivity";
+    private static final int PORT = 12346;
 
     private Button hotspotButton;
     private Button startGameButton;
@@ -43,68 +43,41 @@ public class HostActivity extends Activity {
     private ServerSocket serverSocket;
     private ExecutorService executor;
 
-    private List<Player> players = new ArrayList<>();
+    private List<MrWhitePlayer> players = new ArrayList<>();
     private Map<String, ClientHandler> clientHandlers = new HashMap<>();
-    private Player hostPlayer;
+    private MrWhitePlayer hostPlayer;
     private boolean isServerRunning = false;
 
     private Button toggleRoleButton;
 
-    // Game settings
-    private String[] locations = {
-            "Praia", // Beach
-            "Banco", // Bank
-            "Escola", // School
-            "Hospital", // Hospital
-            "Restaurante", // Restaurant
-            "Casino", // Casino
-            "Polícia", // Police station
-            "Biblioteca", // Library
-            "Teatro", // Theater
-            "Centro comercial", // Shopping mall
-            "Aeroporto", // Airport
-            "Estação de comboios", // Train station
-            "Parque", // Park
-            "Supermercado", // Supermarket
-            "Farmácia", // Pharmacy
-            "Cinema", // Cinema
-            "Museu", // Museum
-            "Estádio", // Stadium
-            "Café", // Café
-            "Discoteca", // Nightclub
-            "Zoo", // Zoo
-            "Jardim botânico", // Botanical garden
-            "Piscina", // Swimming pool
-            "Ginásio", // Gym
-            "Praça", // Square
-            "Mercado", // Market
-            "Castelo", // Castle
-            "Igreja", // Church
-            "Câmara municipal", // City hall
-            "Universidade", // University
-            "Estação de autocarros", // Bus station
-            "Porto", // Harbor
-            "Montanha", // Mountain
-            "Floresta", // Forest
-            "Cemitério", // Cemetery
-            "Feira", // Fair
-            "Livraria", // Bookstore
-            "Sala de concertos", // Concert hall
-            "Galeria de arte", // Art gallery
-            "Estúdio de cinema", // Film studio
-            "Estação de metro", // Subway station
-            "Parque de campismo", // Camping site
-            "Praça de touros", // Bullring
-            "Aquário", // Aquarium
-            "Planetário", // Planetarium
-            "Observatório", // Observatory
-            "Estádio"
+    // Word pairs for the game (common word, similar word)
+    private String[][] wordPairs = {
+            {"Dog", "Wolf"},
+            {"Cat", "Lion"},
+            {"Chair", "Bench"},
+            {"Car", "Bus"},
+            {"Apple", "Orange"},
+            {"Book", "Magazine"},
+            {"Sun", "Moon"},
+            {"Guitar", "Piano"},
+            {"Shoes", "Socks"},
+            {"Coffee", "Tea"},
+            {"Beach", "Pool"},
+            {"Mountain", "Hill"},
+            {"Rain", "Snow"},
+            {"Phone", "Computer"},
+            {"Tree", "Bush"},
+            {"Bread", "Cake"},
+            {"Fish", "Shark"},
+            {"Clock", "Watch"},
+            {"Hat", "Cap"},
+            {"Pen", "Pencil"}
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_host);
+        setContentView(R.layout.activity_mr_white_host);
 
         // Initialize UI components
         hotspotButton = findViewById(R.id.hostButton);
@@ -115,9 +88,8 @@ public class HostActivity extends Activity {
         roleDisplayTextView = findViewById(R.id.roleDisplayTextView);
         toggleRoleButton = findViewById(R.id.toggleRoleButton);
 
-
         // Initialize host player and add to players list
-        hostPlayer = new Player("Host");
+        hostPlayer = new MrWhitePlayer("Host");
         players.add(hostPlayer);
 
         // Initialize executor for thread management
@@ -133,12 +105,12 @@ public class HostActivity extends Activity {
         hotspotButton.setOnClickListener(v -> setupHotspot());
 
         startGameButton.setOnClickListener(v -> {
-            if (players.size() >= 3) {
+            if (players.size() >= 3) { // Minimum 3 players for this game
                 // Important: Run this on a background thread
                 executor.execute(this::distributeRoles);
                 startGameButton.setEnabled(false);
             } else {
-                Toast.makeText(this, "É preciso pelo menos 2 jogadores para começar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "É preciso pelo menos 3 jogadores para começar", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -191,7 +163,6 @@ public class HostActivity extends Activity {
             int ipAddress = wifiManager.getConnectionInfo().getIpAddress();
             if (ipAddress == 0) {
                 // Try to get the IP address for the hotspot interface
-                // This is a simplified approach and might need further adjustments
                 return "192.168.43.1"; // Common default hotspot IP
             }
             return Formatter.formatIpAddress(ipAddress);
@@ -256,44 +227,38 @@ public class HostActivity extends Activity {
     }
 
     private void distributeRoles() {
-        // This method now runs on a background thread
-        String chosenLocation = locations[new Random().nextInt(locations.length)];
-        Log.d(TAG, "Chosen location: " + chosenLocation);
-
-        // Determine number of spies based on player count
-        int numSpies = players.size() > 5 ? 2 : 1;
-        Log.d(TAG, "Number of spies: " + numSpies);
-
-        // Create a list to track spy indices
-        List<Integer> spyIndices = new ArrayList<>();
+        // This method runs on a background thread
         Random random = new Random();
 
-        // Select spies
-        while (spyIndices.size() < numSpies) {
-            int spyIndex = random.nextInt(players.size());
-            // Make sure we don't select the same player twice
-            if (!spyIndices.contains(spyIndex)) {
-                spyIndices.add(spyIndex);
-            }
-        }
+        // Select a random word pair
+        int pairIndex = random.nextInt(wordPairs.length);
+        String commonWord = wordPairs[pairIndex][0];
+        String mrWhiteWord = wordPairs[pairIndex][1];
 
-        // Assign roles and location
+        Log.d(TAG, "Common word: " + commonWord + ", Mr White word: " + mrWhiteWord);
+
+        // Select one player to be Mr White
+        int mrWhiteIndex = random.nextInt(players.size());
+        Log.d(TAG, "Mr White index: " + mrWhiteIndex);
+
+        // Assign roles and words
         for (int i = 0; i < players.size(); i++) {
-            Player player = players.get(i);
-            if (spyIndices.contains(i)) {
-                player.setRole("Espião");
-                player.setLocation("Unknown");
+            MrWhitePlayer player = players.get(i);
+            if (i == mrWhiteIndex) {
+                player.setRole("MrWhite");
+                player.setWord(mrWhiteWord);
             } else {
-                player.setRole("Agente");
-                player.setLocation(chosenLocation);
+                player.setRole("Regular");
+                player.setWord(commonWord);
             }
         }
 
-        // Show host's role on UI thread
+        // Show host role on UI thread
         runOnUiThread(() -> {
-            roleDisplayTextView.setText("Tu és um " + hostPlayer.getRole() +
-                    (hostPlayer.getRole().equals("Agente") ?
-                            " na/no " + hostPlayer.getLocation() : ""));
+            roleDisplayTextView.setText("Tu és " +
+                    (hostPlayer.getRole().equals("MrWhite") ?
+                            "Mr White e tens a palavra: " + hostPlayer.getWord() :
+                            "um jogador regular e tens a palavra: " + hostPlayer.getWord()));
             statusTextView.setText("O jogo já começou! Papéis distribuidos.");
         });
 
@@ -313,7 +278,7 @@ public class HostActivity extends Activity {
     private void updateUI() {
         runOnUiThread(() -> {
             playersConnectedTextView.setText("Jogadores ligados: " + players.size());
-            startGameButton.setEnabled(players.size() >= 2);
+            startGameButton.setEnabled(players.size() >= 3); // Minimum 3 players for this game
         });
     }
 
@@ -327,7 +292,7 @@ public class HostActivity extends Activity {
     private class ClientHandler implements Runnable {
         private Socket socket;
         private ObjectOutputStream outputStream;
-        private Player clientPlayer;
+        private MrWhitePlayer clientPlayer;
         private boolean isRunning = true;
 
         public ClientHandler(Socket socket) {
@@ -344,7 +309,7 @@ public class HostActivity extends Activity {
         public void run() {
             try {
                 // Create a new player for this client
-                clientPlayer = new Player("Player " + (players.size()));
+                clientPlayer = new MrWhitePlayer("Player " + (players.size()));
 
                 // Add player to the game
                 synchronized (players) {

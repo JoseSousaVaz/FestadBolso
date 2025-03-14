@@ -82,6 +82,8 @@ public class GameDetailsActivity extends AppCompatActivity {
                     intent = new Intent(GameDetailsActivity.this, TruthOrDareActivity.class);
                 } else if (randomId == 7){
                     intent = new Intent(GameDetailsActivity.this, SpyActivity.class);
+                } else if (randomId == 5){
+                    intent = new Intent(GameDetailsActivity.this, MrWhiteActivity.class);
                 } else {
                     Toast.makeText(GameDetailsActivity.this, "Funcionalidade ainda não foi implementada", Toast.LENGTH_SHORT).show();
                 }

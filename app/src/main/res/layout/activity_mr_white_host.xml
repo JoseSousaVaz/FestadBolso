@@ -31,7 +31,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Espião"
+                android:text="Anfitrião - Mr.White"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
@@ -42,7 +42,7 @@
                 android:id="@+id/spy_image"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:src="@drawable/ic_spy"
+                android:src="@drawable/mrwhite_image"
                 android:layout_marginBottom="16dp" />
 
             <!-- Status Text -->
