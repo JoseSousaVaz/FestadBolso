@@ -34,11 +34,22 @@ public class FirestoreHelper {
     private static final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
-    public static void getGames(Context context) {
+    public interface GamesCallback {
+        void onSuccess(String response);
+        void onError(String error);
+    }
+
+    public static void getGames(Context context, GamesCallback callback) {
         RequestQueue queue = Volley.newRequestQueue(context);
         StringRequest request = new StringRequest(Request.Method.GET, FIRESTORE_URL,
-                response -> Log.d(TAG, "Games games: " + response),
-                error -> Log.e(TAG, "Error retrieving games", error)
+                response -> {
+                    Log.d(TAG, "Games retrieved: " + response);
+                    callback.onSuccess(response); // Pass the response to the callback
+                },
+                error -> {
+                    Log.e(TAG, "Error retrieving games", error);
+                    callback.onError(error.toString()); // Pass the error to the callback
+                }
         );
         queue.add(request);
     }

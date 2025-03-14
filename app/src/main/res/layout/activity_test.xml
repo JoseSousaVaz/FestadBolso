@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- TextView to display the test results -->
+    <TextView
+        android:id="@+id/testResults"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Testing..."
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Button to perform the hotspot test -->
+    <Button
+        android:id="@+id/testHotspotButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Hotspot"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Button to start the Host Activity -->
+    <Button
+        android:id="@+id/hostButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Host Game"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Button to start the Join Activity -->
+    <Button
+        android:id="@+id/joinButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Join Game"
+        android:layout_marginBottom="16dp"/>
+</LinearLayout>

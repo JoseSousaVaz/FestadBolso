@@ -3,6 +3,10 @@
     package="com.example.festadbolso">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -29,6 +33,19 @@
 
         <activity android:name=".UI.GameDetailsActivity">
             <!-- You can add additional attributes here, such as launch mode, theme, etc. -->
+        </activity>
+
+        <activity
+            android:name=".UI.TestActivity"
+            android:label="Test Activity"
+            android:theme="@style/Theme.AppCompat.Light" />
+
+        <activity android:name=".UI.HostActivity">
+            <!-- Optional: Any specific settings for HostActivity -->
+        </activity>
+
+        <activity android:name=".UI.JoinActivity">
+            <!-- Optional: Any specific settings for JoinActivity -->
         </activity>
 
     </application>
