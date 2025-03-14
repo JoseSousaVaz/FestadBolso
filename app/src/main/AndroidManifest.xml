@@ -36,7 +36,7 @@
         </activity>
 
         <activity
-            android:name=".UI.TestActivity"
+            android:name=".UI.SpyActivity"
             android:theme="@style/Theme.AppCompat.Light" />
 
         <activity android:name=".UI.HostActivity">
@@ -54,5 +54,9 @@
         <activity android:name=".UI.GameListActivity">
             <!-- Optional: Any specific settings for JoinActivity -->
         </activity>
+
+        <activity android:name=".UI.TruthOrDareActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
     </application>
 </manifest>

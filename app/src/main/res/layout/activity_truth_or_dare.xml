@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="20dp"
+    android:background="@color/playfulBackground">
+
+    <Button
+        android:id="@+id/truthButton"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Carregue aqui para Verdade"
+        android:textSize="22sp"
+        android:backgroundTint="@color/truthButtonColor"
+        android:textColor="@android:color/white"
+        android:padding="20dp"
+        android:elevation="8dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <Button
+        android:id="@+id/dareButton"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Carregue aqui para uma Consequência"
+        android:textSize="22sp"
+        android:backgroundTint="@color/dareButtonColor"
+        android:textColor="@android:color/white"
+        android:padding="20dp"
+        android:elevation="8dp" />
+
+</LinearLayout>

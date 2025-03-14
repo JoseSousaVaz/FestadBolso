@@ -33,6 +33,13 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="24dp"/>
 
+            <ImageView
+                android:id="@+id/spy_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/ic_spy"
+                android:layout_marginBottom="16dp" />
+
             <!-- Host IP Address Input -->
             <TextView
                 android:layout_width="match_parent"

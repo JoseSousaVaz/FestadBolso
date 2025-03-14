@@ -44,6 +44,15 @@ public class FirebaseUIActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        // Check if user is already logged in
+        if (firebaseAuth.getCurrentUser() != null) {
+            goToMainActivity();
+            return; // Prevents the rest of the activity from loading
+        }
+
         setContentView(R.layout.activity_firebase_ui);
 
         firebaseAuth = FirebaseAuth.getInstance();

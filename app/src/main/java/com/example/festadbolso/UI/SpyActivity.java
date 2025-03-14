@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,12 +18,14 @@ import com.example.festadbolso.R;
 
 import java.lang.reflect.Method;
 
-public class TestActivity extends AppCompatActivity {
+public class SpyActivity extends AppCompatActivity {
 
     private TextView testResultsTextView;
     private Button testHotspotButton;
     private Button hostButton;
     private Button joinButton;
+
+    private ImageView spy_image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,20 +42,20 @@ public class TestActivity extends AppCompatActivity {
 
 
         // Log when onCreate is called
-        Log.d("TestActivity", "onCreate called");
+        Log.d("SpyActivity", "onCreate called");
 
         // Set button listeners
         testHotspotButton.setOnClickListener(v -> performTests());
 
         hostButton.setOnClickListener(v -> {
             // Start the HostActivity
-            Intent hostIntent = new Intent(TestActivity.this, HostActivity.class);
+            Intent hostIntent = new Intent(SpyActivity.this, HostActivity.class);
             startActivity(hostIntent);
         });
 
         joinButton.setOnClickListener(v -> {
             // Start the JoinActivity
-            Intent joinIntent = new Intent(TestActivity.this, JoinActivity.class);
+            Intent joinIntent = new Intent(SpyActivity.this, JoinActivity.class);
             startActivity(joinIntent);
         });
     }
@@ -70,25 +73,25 @@ public class TestActivity extends AppCompatActivity {
                     String[] tetherableWifiRegexs = (String[]) method.invoke(connectivityManager);
                     if (tetherableWifiRegexs.length > 0) {
                         results.append("Device supports Wi-Fi Hotspot (Older Android versions)\n");
-                        Log.d("TestActivity", "Device supports Wi-Fi Hotspot (Older Android versions)");
+                        Log.d("SpyActivity", "Device supports Wi-Fi Hotspot (Older Android versions)");
                     } else {
                         results.append("Device does NOT support Wi-Fi Hotspot (Older Android versions)\n");
-                        Log.d("TestActivity", "Device does NOT support Wi-Fi Hotspot (Older Android versions)");
+                        Log.d("SpyActivity", "Device does NOT support Wi-Fi Hotspot (Older Android versions)");
                     }
                 } catch (Exception e) {
                     results.append("Error accessing tethering method on older Android versions.\n");
                     e.printStackTrace();
-                    Log.d("TestActivity", "Error accessing tethering method on older Android versions.");
+                    Log.d("SpyActivity", "Error accessing tethering method on older Android versions.");
                 }
             }
         } else {
             // For Android Q and above, check if hotspot is enabled using WifiManager
             if (isHotspotEnabled()) {
                 results.append("Hotspot is enabled.\n");
-                Log.d("TestActivity", "Hotspot is enabled.");
+                Log.d("SpyActivity", "Hotspot is enabled.");
             } else {
                 results.append("Hotspot is disabled.\n");
-                Log.d("TestActivity", "Hotspot is disabled.");
+                Log.d("SpyActivity", "Hotspot is disabled.");
             }
         }
 
@@ -102,11 +105,11 @@ public class TestActivity extends AppCompatActivity {
             Method method = wifiManager.getClass().getDeclaredMethod("isWifiApEnabled");
             method.setAccessible(true);
             Boolean isHotspotEnabled = (Boolean) method.invoke(wifiManager);
-            Log.d("TestActivity", "isWifiApEnabled: " + isHotspotEnabled);
+            Log.d("SpyActivity", "isWifiApEnabled: " + isHotspotEnabled);
             return isHotspotEnabled != null && isHotspotEnabled;
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d("TestActivity", "Error accessing hotspot state.");
+            Log.d("SpyActivity", "Error accessing hotspot state.");
             return false;
         }
     }

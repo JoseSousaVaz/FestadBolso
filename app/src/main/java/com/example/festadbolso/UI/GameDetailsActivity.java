@@ -7,14 +7,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.festadbolso.R;
 import com.example.festadbolso.Firestore.FirestoreHelper;
@@ -76,13 +73,15 @@ public class GameDetailsActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start the TestActivity when the play button is clicked
+                // Start the SpyActivity when the play button is clicked
                 Intent intent;
-                if (randomId ==4){
+                if (randomId == 4){
                     // Start the CharadesActivity when the play button is clicked
                     intent = new Intent(GameDetailsActivity.this, CharadesActivity.class);
-                }else{
-                    intent = new Intent(GameDetailsActivity.this, TestActivity.class);
+                } else if (randomId == 6) {
+                    intent = new Intent(GameDetailsActivity.this, TruthOrDareActivity.class);
+                } else{
+                    intent = new Intent(GameDetailsActivity.this, SpyActivity.class);
                 }
                 startActivity(intent);
 
