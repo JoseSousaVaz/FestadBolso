@@ -34,6 +34,10 @@ public class TestActivity extends AppCompatActivity {
         hostButton = findViewById(R.id.hostButton);
         joinButton = findViewById(R.id.joinButton);
 
+        testResultsTextView.setVisibility(View.GONE); //don't show text
+        testHotspotButton.setVisibility(View.GONE); //don't show text
+
+
         // Log when onCreate is called
         Log.d("TestActivity", "onCreate called");
 

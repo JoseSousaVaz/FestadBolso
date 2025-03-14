@@ -1,5 +1,7 @@
 package com.example.festadbolso.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.festadbolso.R;
+import com.example.festadbolso.UI.GameDetailsActivity;
 import com.example.festadbolso.model.Game;
 import java.util.List;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder> {
     private List<Game> games;
+    private Context context;
 
-    public GameAdapter(List<Game> games) {
+    public GameAdapter(Context context, List<Game> games) {
+        this.context = context;
         this.games = games;
     }
 
@@ -38,6 +43,14 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
                 .placeholder(R.drawable.placeholder_image) // Placeholder image
                 .error(R.drawable.error_image) // Error image
                 .into(holder.gameImage);
+
+        // Set click listener for the item
+        holder.itemView.setOnClickListener(v -> {
+            // Pass the game ID to GameDetailsActivity
+            Intent intent = new Intent(context, GameDetailsActivity.class);
+            intent.putExtra("randomId", Long.parseLong(game.getId())); // Pass the game ID as a long
+            context.startActivity(intent);
+        });
     }
 
     @Override

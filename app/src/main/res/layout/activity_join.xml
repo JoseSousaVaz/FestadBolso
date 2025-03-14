@@ -1,62 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:gravity="center_horizontal">
+    android:background="@color/light_gray">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Join Game"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="24dp"/>
-
-    <TextView
+    <!-- CardView for a polished look -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter Host IP Address:"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/white">
 
-    <EditText
-        android:id="@+id/ipAddressEditText"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/entrar_no_jogo"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- Host IP Address Input -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pedido_ip_anfitriao"
+                android:textColor="@color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:id="@+id/ipAddressEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="192.168.43.1"
+                android:textColor="@color/black"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Join Game Button -->
+            <Button
+                android:id="@+id/joinButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/entrar_no_jogo"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/teal_200"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp"
+                android:textAllCaps="false"/>
+
+            <!-- Status Text -->
+            <TextView
+                android:id="@+id/statusTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/insira_ip_do_anfitriao_e_entre_no_jogo"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:layout_marginBottom="16dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Role Display Section -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="192.168.43.1"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/white">
 
-    <Button
-        android:id="@+id/joinButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Join Game"
-        android:layout_marginBottom="24dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-    <TextView
-        android:id="@+id/statusTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Enter host IP and tap 'Join Game'"
-        android:textAlignment="center"
-        android:layout_marginBottom="32dp"/>
+            <!-- Toggle Button -->
+            <Button
+                android:id="@+id/toggleRoleButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/hide_role"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/purple_200"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp"
+                android:textAllCaps="false"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Your Role:"
-        android:textAlignment="center"
-        android:layout_marginBottom="8dp"/>
-
-    <TextView
-        android:id="@+id/roleDisplayTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Waiting for game to start..."
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:textSize="18sp"/>
-
+            <!-- Role Display Text -->
+            <TextView
+                android:id="@+id/roleDisplayTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/wait_for_game"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textSize="18sp" /> <!-- Initially hidden -->
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

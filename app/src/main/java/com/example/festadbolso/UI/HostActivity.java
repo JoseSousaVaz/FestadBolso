@@ -48,10 +48,57 @@ public class HostActivity extends Activity {
     private Player hostPlayer;
     private boolean isServerRunning = false;
 
+    private Button toggleRoleButton;
+
     // Game settings
     private String[] locations = {
-            "Beach", "Bank", "School", "Hospital", "Restaurant",
-            "Casino", "Police Station", "Library", "Theater", "Mall"
+            "Praia", // Beach
+            "Banco", // Bank
+            "Escola", // School
+            "Hospital", // Hospital
+            "Restaurante", // Restaurant
+            "Casino", // Casino
+            "Polícia", // Police station
+            "Biblioteca", // Library
+            "Teatro", // Theater
+            "Centro comercial", // Shopping mall
+            "Aeroporto", // Airport
+            "Estação de comboios", // Train station
+            "Parque", // Park
+            "Supermercado", // Supermarket
+            "Farmácia", // Pharmacy
+            "Cinema", // Cinema
+            "Museu", // Museum
+            "Estádio", // Stadium
+            "Café", // Café
+            "Discoteca", // Nightclub
+            "Zoo", // Zoo
+            "Jardim botânico", // Botanical garden
+            "Piscina", // Swimming pool
+            "Ginásio", // Gym
+            "Praça", // Square
+            "Mercado", // Market
+            "Castelo", // Castle
+            "Igreja", // Church
+            "Câmara municipal", // City hall
+            "Universidade", // University
+            "Estação de autocarros", // Bus station
+            "Porto", // Harbor
+            "Montanha", // Mountain
+            "Floresta", // Forest
+            "Cemitério", // Cemetery
+            "Feira", // Fair
+            "Livraria", // Bookstore
+            "Sala de concertos", // Concert hall
+            "Galeria de arte", // Art gallery
+            "Estúdio de cinema", // Film studio
+            "Estação de metro", // Subway station
+            "Parque de campismo", // Camping site
+            "Praça de touros", // Bullring
+            "Aquário", // Aquarium
+            "Planetário", // Planetarium
+            "Observatório", // Observatory
+            "Estádio"
     };
 
     @Override
@@ -66,6 +113,8 @@ public class HostActivity extends Activity {
         ipAddressTextView = findViewById(R.id.ipAddressTextView);
         playersConnectedTextView = findViewById(R.id.playersConnectedTextView);
         roleDisplayTextView = findViewById(R.id.roleDisplayTextView);
+        toggleRoleButton = findViewById(R.id.toggleRoleButton);
+
 
         // Initialize host player and add to players list
         hostPlayer = new Player("Host");
@@ -89,12 +138,22 @@ public class HostActivity extends Activity {
                 executor.execute(this::distributeRoles);
                 startGameButton.setEnabled(false);
             } else {
-                Toast.makeText(this, "Need at least 2 players to start", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "É preciso pelo menos 2 jogadores para começar", Toast.LENGTH_SHORT).show();
             }
         });
 
         // Start server in background
         startServer();
+
+        toggleRoleButton.setOnClickListener(v -> {
+            if (roleDisplayTextView.getVisibility() == View.GONE) {
+                roleDisplayTextView.setVisibility(View.VISIBLE);
+                toggleRoleButton.setText("Hide Role");
+            } else {
+                roleDisplayTextView.setVisibility(View.GONE);
+                toggleRoleButton.setText("Show Role");
+            }
+        });
     }
 
     private void setupHotspot() {
@@ -119,7 +178,7 @@ public class HostActivity extends Activity {
     private void updateIpAddress() {
         String ipAddress = getLocalIpAddress();
         if (ipAddress != null) {
-            ipAddressTextView.setText("Your IP Address: " + ipAddress);
+            ipAddressTextView.setText("O teu IP: " + ipAddress);
             Log.d(TAG, "IP Address: " + ipAddress);
         } else {
             ipAddressTextView.setText("IP Address not available");
@@ -152,7 +211,7 @@ public class HostActivity extends Activity {
                 Log.d(TAG, "Server started on port " + PORT);
 
                 runOnUiThread(() -> {
-                    statusTextView.setText("Server running. Waiting for players...");
+                    statusTextView.setText("Servidor ligado. À espera de jogadores...");
                     updateIpAddress();
                 });
 
@@ -208,20 +267,20 @@ public class HostActivity extends Activity {
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
             if (i == spyIndex) {
-                player.setRole("Spy");
+                player.setRole("Espião");
                 player.setLocation("Unknown");
             } else {
-                player.setRole("Agent");
+                player.setRole("Agente");
                 player.setLocation(chosenLocation);
             }
         }
 
         // Show host's role on UI thread
         runOnUiThread(() -> {
-            roleDisplayTextView.setText("You are a " + hostPlayer.getRole() +
-                    (hostPlayer.getRole().equals("Agent") ?
-                            " at " + hostPlayer.getLocation() : ""));
-            statusTextView.setText("Game started! Roles distributed.");
+            roleDisplayTextView.setText("Tu és um " + hostPlayer.getRole() +
+                    (hostPlayer.getRole().equals("Agente") ?
+                            " na/no " + hostPlayer.getLocation() : ""));
+            statusTextView.setText("O jogo já começou! Papéis distribuidos.");
         });
 
         // Make a local final copy of the client handlers to avoid concurrency issues
@@ -239,7 +298,7 @@ public class HostActivity extends Activity {
 
     private void updateUI() {
         runOnUiThread(() -> {
-            playersConnectedTextView.setText("Players connected: " + players.size());
+            playersConnectedTextView.setText("Jogadores ligados: " + players.size());
             startGameButton.setEnabled(players.size() >= 2);
         });
     }

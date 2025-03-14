@@ -37,7 +37,6 @@
 
         <activity
             android:name=".UI.TestActivity"
-            android:label="Test Activity"
             android:theme="@style/Theme.AppCompat.Light" />
 
         <activity android:name=".UI.HostActivity">

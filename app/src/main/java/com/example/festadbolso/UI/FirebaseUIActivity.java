@@ -105,7 +105,7 @@ public class FirebaseUIActivity extends AppCompatActivity {
                                             progressBar.setVisibility(View.GONE);
                                             authButton.setEnabled(true);
                                             if (profileUpdateTask.isSuccessful()) {
-                                                Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(this, "Registo bem sucedido!", Toast.LENGTH_SHORT).show();
                                                 goToMainActivity();
                                             }
                                         });
@@ -113,7 +113,7 @@ public class FirebaseUIActivity extends AppCompatActivity {
                         } else {
                             progressBar.setVisibility(View.GONE);
                             authButton.setEnabled(true);
-                            Toast.makeText(this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Problema com o registo: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         } else {
@@ -124,10 +124,10 @@ public class FirebaseUIActivity extends AppCompatActivity {
                         authButton.setEnabled(true);
 
                         if (task.isSuccessful()) {
-                            Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Login bem sucedido!", Toast.LENGTH_SHORT).show();
                             goToGameListActivity();
                         } else {
-                            Toast.makeText(this, "Login failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Problema com login: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         }

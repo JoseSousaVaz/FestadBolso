@@ -25,4 +25,17 @@
     <string name="regras_charadas">Como jogar:\n1. Usa mimica para explicar a palavra sem falar ou fazer sons.\n2. Aumenta a dificuldade! Mistura ações com animais ou superheróies.\n3. Diverte-te e sê creativo!\n4.(Opcional)Regista quantas vezes acertas ou adivinham o que tu estavas a gesticular, no fim de todos fazerem conta a pontuação.</string>
     <string name="charadas">Charadas!</string>
     <string name="game_image_description">image!</string>
+    <string name="lista_de_jogos">Lista de jogos</string>
+    <string name="host_required_info">Um dos jogadores tem que usar o seu telemóvel como hotspot, deixar os outros entrarem e ser o anfitrião para começar o jogo.</string>
+    <string name="entrar_no_jogo">Entrar no jogo</string>
+    <string name="ser_anfitri_o_do_jogo">Ser anfitrião do jogo</string>
+    <string name="pedido_ip_anfitriao">Insira IP do anfitrião(estará no ecrã dele):</string>
+    <string name="insira_ip_do_anfitriao_e_entre_no_jogo">Insira IP do anfitriao e entre no jogo!</string>
+    <string name="hide_role">Esconder papel</string>
+    <string name="wait_for_game">À espera que o jogo comece...</string>
+    <string name="start_game">Começar jogo</string>
+    <string name="jogadores_ligado_1">Jogadores ligado: 1</string>
+    <string name="ligar_hotspot">Ligar hotspot</string>
+    <string name="morada_ip_aparece_aqui">Morada IP aparece aqui</string>
+    <string name="permite_hotspot_para_te_tornares_anfitri_o">Permite hotspot para te tornares anfitrião</string>
 </resources>

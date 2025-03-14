@@ -62,7 +62,7 @@ public class GameDetailsActivity extends AppCompatActivity {
                 fetchAllGames(randomIdString); // Pass the randomId as a String
                 // Check if the ID matches any of the specified values
                 if (randomId == 1 || randomId == 2) {
-                    playButton.setVisibility(View.GONE); // Show the button
+                    playButton.setVisibility(View.GONE); // Don't show the button
                 }
             } else {
                 Toast.makeText(this, "Error: Invalid game ID", Toast.LENGTH_SHORT).show();
@@ -135,7 +135,7 @@ public class GameDetailsActivity extends AppCompatActivity {
                     Log.d("GameDetails", "No matching documents found");
                 } catch (JSONException e) {
                     Log.e("GameDetails", "Error parsing JSON: " + e.toString());
-                    Toast.makeText(GameDetailsActivity.this, "Error loading game", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(GameDetailsActivity.this, "Error loading game", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -143,7 +143,7 @@ public class GameDetailsActivity extends AppCompatActivity {
             public void onError(String error) {
                 progressDialog.dismiss();
                 Log.e("GameDetails", "Error fetching games: " + error);
-                Toast.makeText(GameDetailsActivity.this, "Error loading game", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(GameDetailsActivity.this, "Error loading game", Toast.LENGTH_SHORT).show();
             }
         });
     }

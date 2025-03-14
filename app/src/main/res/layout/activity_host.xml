@@ -1,73 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:gravity="center_horizontal">
+    android:background="@color/light_gray">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Host Game"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="24dp"/>
-
-    <TextView
-        android:id="@+id/statusTextView"
+    <!-- CardView for a polished look -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tap 'Enable Hotspot' to start hosting"
-        android:textAlignment="center"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/white">
 
-    <TextView
-        android:id="@+id/ipAddressTextView"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Host Game"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- Status Text -->
+            <TextView
+                android:id="@+id/statusTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/permite_hotspot_para_te_tornares_anfitri_o"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- IP Address Text -->
+            <TextView
+                android:id="@+id/ipAddressTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/morada_ip_aparece_aqui"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Players Connected Text -->
+            <TextView
+                android:id="@+id/playersConnectedTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/jogadores_ligado_1"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- Enable Hotspot Button -->
+            <Button
+                android:id="@+id/hostButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ligar_hotspot"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/teal_200"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp"
+                android:textAllCaps="false"/>
+
+            <!-- Start Game Button -->
+            <Button
+                android:id="@+id/startGameButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/start_game"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/pink_200"
+                android:enabled="false"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp"
+                android:textAllCaps="false"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Role Display Section -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="IP Address will appear here"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/white">
 
-    <TextView
-        android:id="@+id/playersConnectedTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Players connected: 1"
-        android:textAlignment="center"
-        android:layout_marginBottom="24dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-    <Button
-        android:id="@+id/hostButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Enable Hotspot"
-        android:layout_marginBottom="16dp"/>
+            <!-- Toggle Button -->
+            <Button
+                android:id="@+id/toggleRoleButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/hide_role"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/purple_200"
+                android:layout_marginBottom="16dp"
+                android:padding="12dp"
+                android:textAllCaps="false"/>
 
-    <Button
-        android:id="@+id/startGameButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Start Game"
-        android:enabled="false"
-        android:layout_marginBottom="32dp"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Your Role:"
-        android:textAlignment="center"
-        android:layout_marginBottom="8dp"/>
-
-    <TextView
-        android:id="@+id/roleDisplayTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Waiting for game to start..."
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:textSize="18sp"/>
-
+            <!-- Role Display Text -->
+            <TextView
+                android:id="@+id/roleDisplayTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/wait_for_game"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textSize="18sp" /> <!-- Initially hidden -->
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

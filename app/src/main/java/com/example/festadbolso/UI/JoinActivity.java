@@ -36,6 +36,8 @@ public class JoinActivity extends Activity {
     private Player clientPlayer;
     private boolean isConnected = false;
 
+    private Button toggleRoleButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,8 @@ public class JoinActivity extends Activity {
         joinButton = findViewById(R.id.joinButton);
         statusTextView = findViewById(R.id.statusTextView);
         roleDisplayTextView = findViewById(R.id.roleDisplayTextView);
+        toggleRoleButton = findViewById(R.id.toggleRoleButton);
+
 
         // Set default IP (common hotspot IP)
         ipAddressEditText.setText("192.168.43.1");
@@ -57,14 +61,24 @@ public class JoinActivity extends Activity {
         joinButton.setOnClickListener(v -> {
             String ipAddress = ipAddressEditText.getText().toString().trim();
             if (ipAddress.isEmpty()) {
-                Toast.makeText(this, "Please enter host IP address", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Por favor insira o IP do anfitrião", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             joinButton.setEnabled(false);
-            statusTextView.setText("Connecting to host...");
+            statusTextView.setText("A ligar ao anfitrião...");
 
             connectToHost(ipAddress);
+        });
+
+        toggleRoleButton.setOnClickListener(v -> {
+            if (roleDisplayTextView.getVisibility() == View.GONE) {
+                roleDisplayTextView.setVisibility(View.VISIBLE);
+                toggleRoleButton.setText("Esconder papel");
+            } else {
+                roleDisplayTextView.setVisibility(View.GONE);
+                toggleRoleButton.setText("Mostrar papel");
+            }
         });
     }
 
@@ -77,7 +91,7 @@ public class JoinActivity extends Activity {
                 isConnected = true;
 
                 runOnUiThread(() -> {
-                    statusTextView.setText("Connected to host. Waiting for game to start...");
+                    statusTextView.setText("Ligado ao anfitrião. À espera que o jogo comece...");
                     joinButton.setVisibility(View.GONE);
                 });
 
@@ -85,7 +99,7 @@ public class JoinActivity extends Activity {
                 listenForMessages();
 
             } catch (IOException e) {
-                Log.e(TAG, "Failed to connect to host", e);
+                Log.e(TAG, "Erro ao ligar ao anfitrião", e);
                 runOnUiThread(() -> {
                     statusTextView.setText("Connection failed: " + e.getMessage());
                     joinButton.setEnabled(true);
@@ -137,14 +151,14 @@ public class JoinActivity extends Activity {
         // Update UI with player role information
         runOnUiThread(() -> {
             if (clientPlayer != null) {
-                String roleInfo = "You are a " + clientPlayer.getRole();
+                String roleInfo = "Tu és um " + clientPlayer.getRole();
 
-                if (clientPlayer.getRole().equals("Agent")) {
-                    roleInfo += " at " + clientPlayer.getLocation();
+                if (clientPlayer.getRole().equals("Agente")) {
+                    roleInfo += "na/no " + clientPlayer.getLocation();
                 }
 
                 roleDisplayTextView.setText(roleInfo);
-                statusTextView.setText("Game started!");
+                statusTextView.setText("Jogo começado!");
             }
         });
     }

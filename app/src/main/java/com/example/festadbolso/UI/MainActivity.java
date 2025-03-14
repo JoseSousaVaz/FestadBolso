@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private Button registerButton;
     private Button randomGameButton;
     private Button logoutButton;
+    private Button listgamesButton;
     private ImageView appLogoImageView; // Add this line if you're using the ImageView
 
     private FirebaseAuth mAuth;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         registerButton = findViewById(R.id.registerButton);
         randomGameButton = findViewById(R.id.randomGameButton);
         logoutButton = findViewById(R.id.logoutButton);
+        listgamesButton = findViewById(R.id.listgamesButton);
         // Inside onCreate() after setContentView()
         ImageView appLogoImageView = findViewById(R.id.appLogoImageView);
         Glide.with(this)
@@ -92,6 +94,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        listgamesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToGameListActivity();
+            }
+        });
+
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
             // Display username instead of email if available
             String displayName = user.getDisplayName();
             welcomeTextView.setText("Welcome, " + (displayName != null && !displayName.isEmpty() ? displayName : user.getEmail()));
-
+            listgamesButton.setVisibility(View.VISIBLE);
             loginButton.setVisibility(View.GONE);
             registerButton.setVisibility(View.GONE);
             logoutButton.setVisibility(View.VISIBLE);
@@ -123,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
             loginButton.setVisibility(View.VISIBLE);
             registerButton.setVisibility(View.VISIBLE);
             logoutButton.setVisibility(View.GONE);
+            listgamesButton.setVisibility(View.GONE);
         }
     }
 
@@ -136,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void startRandomGame() {
         // For now, just show a toast message
-        Toast.makeText(this, "Random game will be implemented soon!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Jogo aleatório a ser gerado!", Toast.LENGTH_SHORT).show();
 
         // In the future, you would start a new activity or fragment for the game
 // Assuming the listener is set up correctly somewhere
@@ -156,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                     // Log or use the random ID
                     Log.d("Firestore", "Random Game ID: " + randomId);
                     //Remover na última versão
-                    Toast.makeText(MainActivity.this, "Random Game ID: " + randomId, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(MainActivity.this, "Random Game ID: " + randomId, Toast.LENGTH_LONG).show();
 
                     Intent intent = new Intent(MainActivity.this, GameDetailsActivity.class);
                     intent.putExtra("randomId", randomId); // Pass the random ID to the next activity
@@ -204,5 +214,12 @@ public class MainActivity extends AppCompatActivity {
         mAuth.signOut();
         Toast.makeText(this, "Signed out successfully", Toast.LENGTH_SHORT).show();
         updateUI(null);
+    }
+
+    private void goToGameListActivity() {
+        Intent intent = new Intent(this, GameListActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+        finish();
     }
 }

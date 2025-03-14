@@ -59,6 +59,19 @@
         app:layout_constraintWidth_percent="0.7" />
 
     <Button
+        android:id="@+id/listgamesButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/lista_de_jogos"
+        android:textSize="18sp"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerButton"
+        app:layout_constraintWidth_percent="0.7" />
+
+    <Button
         android:id="@+id/randomGameButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -68,7 +81,7 @@
         android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerButton"
+        app:layout_constraintTop_toBottomOf="@+id/listgamesButton"
         app:layout_constraintWidth_percent="0.7" />
 
     <Button

@@ -31,7 +31,7 @@ public class GameListActivity extends AppCompatActivity {
         gamesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize Adapter
-        gameAdapter = new GameAdapter(games);
+        gameAdapter = new GameAdapter(this, games); // Pass 'this' as the context
         gamesRecyclerView.setAdapter(gameAdapter);
 
         // Fetch games from Firestore
