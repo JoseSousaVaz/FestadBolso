@@ -260,13 +260,27 @@ public class HostActivity extends Activity {
         String chosenLocation = locations[new Random().nextInt(locations.length)];
         Log.d(TAG, "Chosen location: " + chosenLocation);
 
-        // Select one spy
-        int spyIndex = new Random().nextInt(players.size());
+        // Determine number of spies based on player count
+        int numSpies = players.size() > 5 ? 2 : 1;
+        Log.d(TAG, "Number of spies: " + numSpies);
+
+        // Create a list to track spy indices
+        List<Integer> spyIndices = new ArrayList<>();
+        Random random = new Random();
+
+        // Select spies
+        while (spyIndices.size() < numSpies) {
+            int spyIndex = random.nextInt(players.size());
+            // Make sure we don't select the same player twice
+            if (!spyIndices.contains(spyIndex)) {
+                spyIndices.add(spyIndex);
+            }
+        }
 
         // Assign roles and location
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
-            if (i == spyIndex) {
+            if (spyIndices.contains(i)) {
                 player.setRole("Espião");
                 player.setLocation("Unknown");
             } else {
