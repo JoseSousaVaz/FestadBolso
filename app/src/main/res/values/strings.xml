@@ -24,4 +24,5 @@
     <string name="palavra">Palavra:</string>
     <string name="regras_charadas">Como jogar:\n1. Usa mimica para explicar a palavra sem falar ou fazer sons.\n2. Aumenta a dificuldade! Mistura ações com animais ou superheróies.\n3. Diverte-te e sê creativo!\n4.(Opcional)Regista quantas vezes acertas ou adivinham o que tu estavas a gesticular, no fim de todos fazerem conta a pontuação.</string>
     <string name="charadas">Charadas!</string>
+    <string name="game_image_description">image!</string>
 </resources>

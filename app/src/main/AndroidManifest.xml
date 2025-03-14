@@ -52,5 +52,8 @@
             <!-- Optional: Any specific settings for JoinActivity -->
         </activity>
 
+        <activity android:name=".UI.GameListActivity">
+            <!-- Optional: Any specific settings for JoinActivity -->
+        </activity>
     </application>
 </manifest>
